@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Potongan Pejabat</title>
 
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+.dashboard{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+background:#0b5ed7;
+color:#fff;
+padding:15px 20px;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+.header img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+margin-bottom:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th,
+table td{
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+.amount{
+font-size:28px;
+font-weight:bold;
+color:#0b5ed7;
+}
+
+.logout{
+display:inline-block;
+padding:12px 25px;
+background:#dc3545;
+color:#fff;
+text-decoration:none;
+border-radius:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<div class="header">
+
+<div>
+<h2>E-POTONGAN PEJABAT</h2>
+<p>Cawangan Platun Teknikal
+  <div class="card">
+
+<h3>Maklumat Ahli</h3>
+
+<table>
+
+<tr>
+<th>Nama</th>
+<td id="nama">Muhamad Afif Bin Ahmad Bahran</td>
+</tr>
+
+<tr>
+<th>No. PR</th>
+<td id="pr">R7196720</td>
+</tr>
+
+<tr>
+<th>Jawatan</th>
+<td id="jawatan">Setiausaha Platun Teknikal</td>
+</tr>
+
+<tr>
+<th>Status</th>
+<td>Aktif</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="card">
+
+<h3>Jumlah Potongan Terkumpul</h3>
+
+<div class="amount">
+RM 0.00
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Bayaran Melalui DuitNow</h3>
+
+<center>
+
+<img src="assets/qr-duitnow.png"
+style="width:220px;max-width:100%;">
+
+<p>
+Imbas Kod QR untuk membuat bayaran.
+</p>
+
+</center>
+
+</div>
+
+<a href="pages/login.html" class="logout">
+LOG KELUAR
+</a>
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>

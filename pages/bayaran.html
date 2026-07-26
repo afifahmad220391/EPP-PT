@@ -538,7 +538,14 @@ function kembali() {
     window.location.href = "./ahli.html";
 
 }
+function bukaAmaran(mesej) {
+    document.getElementById("mesejAmaran").textContent = mesej;
+    document.getElementById("popupAmaran").style.display = "flex";
+}
 
+function tutupAmaran() {
+    document.getElementById("popupAmaran").style.display = "none";
+}
 
 paparkanBayaran();
 

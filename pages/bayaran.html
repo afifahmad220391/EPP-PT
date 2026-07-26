@@ -299,7 +299,32 @@ header p {
         <div id="jumlahPopup" class="popup-amount">
             RM0.00
         </div>
+        
+<div style="margin:18px 0; text-align:left;">
 
+  <label for="buktiBayaran" style="font-weight:600;">
+    Upload Resit / Bukti Pembayaran
+  </label>
+
+  <input
+    type="file"
+    id="buktiBayaran"
+    accept="image/*"
+    style="
+      width:100%;
+      margin-top:8px;
+      padding:10px;
+      border:1px solid #ddd;
+      border-radius:8px;
+      background:#fff;
+    "
+  >
+
+  <small style="display:block; margin-top:6px; color:#666;">
+    Sila pilih gambar resit pembayaran.
+  </small>
+
+</div>
         <button class="btn btn-confirm" onclick="sahkanBayaran()">
             YA, SAYA SUDAH BAYAR
         </button>

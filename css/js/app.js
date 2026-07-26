@@ -28,7 +28,7 @@ fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(pas
     .then(data => {
 if (data.success) {
     localStorage.setItem("user", JSON.stringify(data));
-    window.location.href = "../../pages/ahli.html";
+    window.location.href = "/EPP-PT/pages/ahli.html";
 } else {
             alert("No. PR atau Kata Laluan tidak betul.");
         }

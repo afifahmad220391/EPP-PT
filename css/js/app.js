@@ -27,10 +27,20 @@ fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(pas
     .then(response => response.json())
     .then(data => {
 if (data.success) {
-    data.pr = pr;
-    localStorage.setItem("user", JSON.stringify(data));
+
+    const userData = data.user || data.data || data;
+
+    userData.pr = userData.pr || userData.no_pr || userData.noPR || pr;
+    userData.nama = userData.nama || userData.name || "Ahli";
+    userData.jawatan = userData.jawatan || "-";
+    userData.role = userData.role || userData.peranan || "Ahli";
+    userData.telefon = userData.telefon || userData.no_telefon || userData.phone || "-";
+
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("user_pr", userData.pr);
+
     window.location.href = "/EPP-PT/pages/ahli.html";
-} else {
+}else {
             alert("No. PR atau Kata Laluan tidak betul.");
         }
 

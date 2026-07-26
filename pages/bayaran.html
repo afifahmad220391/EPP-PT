@@ -218,6 +218,83 @@ header p {
 
 </div>
 
+<!-- POPUP PENGESAHAN BAYARAN -->
+<div id="popupBayaran" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+">
+
+    <div style="
+        background:white;
+        width:100%;
+        max-width:380px;
+        border-radius:18px;
+        padding:28px 22px;
+        text-align:center;
+        box-shadow:0 10px 35px rgba(0,0,0,0.25);
+    ">
+
+        <div style="font-size:38px; margin-bottom:10px;">💳</div>
+
+        <h2 style="
+            margin:0 0 10px;
+            color:#0b365b;
+        ">
+            Pengesahan Bayaran
+        </h2>
+
+        <p style="
+            margin:0;
+            color:#555;
+            line-height:1.6;
+        ">
+            Sahkan anda telah membuat bayaran sebanyak
+        </p>
+
+        <div id="jumlahPopup" style="
+            font-size:30px;
+            font-weight:bold;
+            color:#0b365b;
+            margin:12px 0 22px;
+        ">
+            RM0.00
+        </div>
+
+        <button onclick="sahkanBayaran()" style="
+            width:100%;
+            padding:14px;
+            border:0;
+            border-radius:10px;
+            background:#168c54;
+            color:white;
+            font-weight:bold;
+            font-size:14px;
+            margin-bottom:10px;
+        ">
+            YA, SAYA SUDAH BAYAR
+        </button>
+
+        <button onclick="tutupPopup()" style="
+            width:100%;
+            padding:14px;
+            border:0;
+            border-radius:10px;
+            background:#e9eef3;
+            color:#0b365b;
+            font-weight:bold;
+            font-size:14px;
+        ">
+            BATAL
+        </button>
+
+    </div>
+</div>  
 <script>
 
 const API_URL = "https://script.google.com/macros/s/AKfycbzOuvnZvar69XHxbw8fivoJX0BrivS-vAbATjt8_MUszr8OegDnQfIyjnyQadyGXD-keg/exec" ; 
@@ -270,15 +347,23 @@ if (data && data.success && potonganPR === user.pr) {
         return;
     }
 
-    const pasti = confirm(
-        "Sahkan anda telah membuat bayaran sebanyak " +
-        formatRM(data.jumlah) + "?"
-    );
+    document.getElementById("jumlahPopup").textContent =
+        formatRM(data.jumlah);
 
-    if (!pasti) return;
+    document.getElementById("popupBayaran").style.display = "flex";
+}
+
+
+function tutupPopup() {
+    document.getElementById("popupBayaran").style.display = "none";
+}
+
+
+function sahkanBayaran() {
+    tutupPopup();
 
     alert("Bayaran telah ditandakan untuk pengesahan admin.");
-} 
+}
 </script>
 </body>
 </html>

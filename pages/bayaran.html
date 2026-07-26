@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+I89<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
@@ -459,9 +459,9 @@ function sahkanBayaran() {
     const inputResit = document.getElementById("buktiBayaran");
 
     if (!inputResit || inputResit.files.length === 0) {
-        alert("Sila upload resit / bukti pembayaran terlebih dahulu.");
-        return;
-    }
+    bukaAmaran("Sila upload resit / bukti pembayaran terlebih dahulu.");
+    return;
+}
 
     const resit = inputResit.files[0];
 

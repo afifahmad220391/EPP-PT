@@ -274,12 +274,15 @@ fetch(
       formatRM(data.khairat);
 
     document.getElementById("jumlah").textContent =
-      formatRM(data.jumlah);
+    formatRM(data.jumlah);
 
-    document.getElementById("status").textContent =
-      data.status || "-";
+document.getElementById("status").textContent =
+    data.status || "-";
 
-  } else {
+localStorage.setItem("potongan", JSON.stringify(data));
+localStorage.setItem("potongan_pr", user.pr);
+
+} else {
 
     document.getElementById("loading").textContent =
       "Tiada rekod potongan dijumpai.";

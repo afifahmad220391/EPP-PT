@@ -1,379 +1,452 @@
-ITo<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bayaran | E-Potongan Pejabat</title>
+<title>Bayaran Potongan | E-Potongan Pejabat</title>
 
 <style>
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f5f8;
-  color: #172033;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f5f9;
+    color: #172033;
 }
 
 header {
-  background: #082b50;
-  color: white;
-  text-align: center;
-  padding: 24px 15px;
+    background: #0b365b;
+    color: white;
+    padding: 20px 15px;
+    text-align: center;
 }
 
 header h1 {
-  margin: 0;
-  font-size: 21px;
+    margin: 0;
+    font-size: 20px;
 }
 
 header p {
-  margin: 7px 0 0;
-  font-size: 12px;
-  opacity: .85;
+    margin: 6px 0 0;
+    font-size: 11px;
 }
 
 .container {
-  max-width: 520px;
-  margin: auto;
-  padding: 18px;
+    max-width: 600px;
+    margin: auto;
+    padding: 18px;
 }
 
 .card {
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    background: white;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
 }
 
 .card h2 {
-  margin: 0 0 16px;
-  color: #082b50;
-  text-align: center;
+    margin: 0 0 18px;
+    color: #0b365b;
+    text-align: center;
 }
 
 .row {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.row:last-child {
+    border-bottom: none;
 }
 
 .value {
-  font-weight: bold;
-  text-align: right;
+    font-weight: bold;
+    text-align: right;
 }
 
 .amount {
-  margin: 18px 0;
-  background: #082b50;
-  color: white;
-  border-radius: 14px;
-  padding: 18px;
-  text-align: center;
+    background: #0b365b;
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 18px;
+    text-align: center;
 }
 
 .amount small {
-  display: block;
-  margin-bottom: 5px;
+    display: block;
+    margin-bottom: 3px;
 }
 
 .amount strong {
-  font-size: 32px;
+    font-size: 28px;
 }
 
 .qr-box {
-  text-align: center;
-  padding-top: 5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.qr-box h2 {
+    margin-bottom: 12px;
 }
 
 .qr-box img {
-  width: 100%;
-  max-width: 300px;
-  border-radius: 12px;
+    width: 230px;
+    max-width: 80%;
+    height: auto;
 }
 
 .instruction {
-  background: #f7f9fc;
-  border-radius: 12px;
-  padding: 14px;
-  margin-top: 15px;
-  font-size: 13px;
-  line-height: 1.6;
+    margin-top: 18px;
+    padding: 15px;
+    background: #f5f7fa;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.6;
 }
 
 .btn {
-  width: 100%;
-  border: 0;
-  border-radius: 11px;
-  padding: 15px;
-  margin-top: 12px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
 }
 
-.paid {
-  background: #168c54;
-  color: white;
+.btn-paid {
+    background: #168c54;
+    color: white;
 }
 
-.back {
-  background: #e8edf3;
-  color: #082b50;
+.btn-back {
+    background: #e8edf3;
+    color: #0b365b;
 }
 
 .loading {
-  text-align: center;
-  padding: 20px;
-  color: #666;
+    text-align: center;
+    padding: 20px;
+    color: #666;
 }
 
 #error {
-  display: none;
-  background: #fff1f1;
-  color: #b42318;
-  padding: 14px;
-  border-radius: 10px;
-  text-align: center;
+    display: none;
+    background: #fff1f1;
+    color: #b42318;
+    padding: 14px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* POPUP */
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.popup-card {
+    background: white;
+    width: 100%;
+    max-width: 380px;
+    border-radius: 18px;
+    padding: 28px 22px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,.25);
+}
+
+.popup-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.popup-card h2 {
+    margin: 0 0 10px;
+    color: #0b365b;
+}
+
+.popup-card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.popup-amount {
+    font-size: 30px;
+    font-weight: bold;
+    color: #0b365b;
+    margin: 12px 0 22px;
+}
+
+.btn-confirm {
+    background: #168c54;
+    color: white;
+}
+
+.btn-cancel {
+    background: #e9eef3;
+    color: #0b365b;
 }
 </style>
 </head>
 
 <body>
-  
-<script>
-alert("TEST PALING AWAL");
-</script>
-  
+
 <header>
-  <h1>BAYARAN POTONGAN</h1>
-  <p>E-POTONGAN PEJABAT • BATALION 5 PGA</p>
+    <h1>BAYARAN POTONGAN</h1>
+    <p>E-POTONGAN PEJABAT • BATALION 5 PGA</p>
 </header>
 
 <div class="container">
 
-  <div class="card">
+    <div class="card">
 
-    <h2>Maklumat Bayaran</h2>
+        <h2>Maklumat Bayaran</h2>
 
-    <div id="loading" class="loading">
-      Memuatkan maklumat bayaran...
+        <div id="loading" class="loading">
+            Memuatkan maklumat bayaran...
+        </div>
+
+        <div id="error"></div>
+
+        <div id="payment" style="display:none;">
+
+            <div class="row">
+                <span>Nama</span>
+                <span class="value" id="nama">-</span>
+            </div>
+
+            <div class="row">
+                <span>No. PR</span>
+                <span class="value" id="pr">-</span>
+            </div>
+
+            <div class="row">
+                <span>Bulan</span>
+                <span class="value" id="bulan">-</span>
+            </div>
+
+            <div class="amount">
+                <small>JUMLAH PERLU DIBAYAR</small>
+                <strong id="jumlah">RM0.00</strong>
+            </div>
+
+            <div class="qr-box">
+
+                <h2>Imbas DuitNow QR</h2>
+
+                <img
+                    src="../assets/qr-duitnow.png"
+                    alt="DuitNow QR"
+                >
+
+            </div>
+
+            <div class="instruction">
+                <strong>Arahan:</strong><br>
+                1. Imbas QR menggunakan aplikasi bank anda.<br>
+                2. Masukkan jumlah seperti yang dipaparkan di atas.<br>
+                3. Semak maklumat penerima sebelum membuat bayaran.<br>
+                4. Simpan resit atau screenshot transaksi.<br>
+                5. Tekan butang di bawah selepas pembayaran dibuat.
+            </div>
+
+            <button class="btn btn-paid" onclick="sudahBayar()">
+                SAYA SUDAH BAYAR
+            </button>
+
+        </div>
+
     </div>
 
-    <div id="error"></div>
-
-    <div id="payment" style="display:none;">
-
-      <div class="row">
-        <span>Nama</span>
-        <span class="value" id="nama">-</span>
-      </div>
-
-      <div class="row">
-        <span>No. PR</span>
-        <span class="value" id="pr">-</span>
-      </div>
-
-      <div class="row">
-        <span>Bulan</span>
-        <span class="value" id="bulan">-</span>
-      </div>
-
-      <div class="amount">
-        <small>JUMLAH PERLU DIBAYAR</small>
-        <strong id="jumlah">RM0.00</strong>
-      </div>
-
-      <div class="qr-box">
-        <h2>Imbas DuitNow QR</h2>
-
-        <img
-          src="../assets/qr-duitnow.png"
-          alt="DuitNow QR"
-        >
-      </div>
-
-      <div class="instruction">
-        <strong>Arahan:</strong><br>
-        1. Imbas QR menggunakan aplikasi bank anda.<br>
-        2. Masukkan jumlah seperti yang dipaparkan di atas.<br>
-        3. Semak maklumat penerima sebelum membuat bayaran.<br>
-        4. Simpan resit atau screenshot transaksi.<br>
-        5. Tekan butang di bawah selepas pembayaran dibuat.
-      </div>
-
-      <button class="btn paid" onclick="sudahBayar()">
-        SAYA SUDAH BAYAR
-      </button>
-
-    </div>
-
-  </div>
-
-  <button class="btn back" onclick="kembali()">
-    ← KEMBALI KE DASHBOARD
-  </button>
+    <button class="btn btn-back" onclick="kembali()">
+        ← KEMBALI KE DASHBOARD
+    </button>
 
 </div>
 
-<!-- POPUP PENGESAHAN BAYARAN -->
-<div id="popupBayaran" style="
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.55);
-    z-index:9999;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-">
 
-    <div style="
-        background:white;
-        width:100%;
-        max-width:380px;
-        border-radius:18px;
-        padding:28px 22px;
-        text-align:center;
-        box-shadow:0 10px 35px rgba(0,0,0,0.25);
-    ">
+<!-- POPUP PENGESAHAN -->
 
-        <div style="font-size:38px; margin-bottom:10px;">💳</div>
+<div id="popupBayaran" class="popup">
 
-        <h2 style="
-            margin:0 0 10px;
-            color:#0b365b;
-        ">
-            Pengesahan Bayaran
-        </h2>
+    <div class="popup-card">
 
-        <p style="
-            margin:0;
-            color:#555;
-            line-height:1.6;
-        ">
-            Sahkan anda telah membuat bayaran sebanyak
+        <div class="popup-icon">💳</div>
+
+        <h2>Pengesahan Bayaran</h2>
+
+        <p>
+            Sahkan anda telah membuat pembayaran sebanyak
         </p>
 
-        <div id="jumlahPopup" style="
-            font-size:30px;
-            font-weight:bold;
-            color:#0b365b;
-            margin:12px 0 22px;
-        ">
+        <div id="jumlahPopup" class="popup-amount">
             RM0.00
         </div>
 
-        <button onclick="sahkanBayaran()" style="
-            width:100%;
-            padding:14px;
-            border:0;
-            border-radius:10px;
-            background:#168c54;
-            color:white;
-            font-weight:bold;
-            font-size:14px;
-            margin-bottom:10px;
-        ">
+        <button class="btn btn-confirm" onclick="sahkanBayaran()">
             YA, SAYA SUDAH BAYAR
         </button>
 
-        <button onclick="tutupPopup()" style="
-            width:100%;
-            padding:14px;
-            border:0;
-            border-radius:10px;
-            background:#e9eef3;
-            color:#0b365b;
-            font-weight:bold;
-            font-size:14px;
-        ">
+        <button class="btn btn-cancel" onclick="tutupPopup()">
             BATAL
         </button>
 
     </div>
-</div>  
+
+</div>
+
+
 <script>
-alert("JS BAYARAN BERJALAN");
-const API_URL = "https://script.google.com/macros/s/AKfycbzOuvnZvar69XHxbw8fivoJX0BrivS-vAbATjt8_MUszr8OegDnQfIyjnyQadyGXD-keg/exec" ; 
 
-const user = JSON.parse(localStorage.getItem("user"));
-
-if (!user || !user.pr) {
-  window.location.href = "/EPP-PT/";
-}
-
-function formatRM(value) {
-  return "RM" + Number(value || 0).toFixed(2);
-}
-
-
-const data = JSON.parse(localStorage.getItem("potongan"));
+const user = JSON.parse(localStorage.getItem("user") || "null");
+const data = JSON.parse(localStorage.getItem("potongan") || "null");
 const potonganPR = localStorage.getItem("potongan_pr");
 
-document.getElementById("loading").style.display = "none";
 
-if (data && data.success) {
+function formatRM(value) {
 
-    document.getElementById("payment").style.display = "block";
+    const number = Number(value || 0);
+
+    return "RM" + number.toFixed(2);
+
+}
+
+
+function paparkanBayaran() {
+
+    const loading = document.getElementById("loading");
+    const error = document.getElementById("error");
+    const payment = document.getElementById("payment");
+
+
+    if (!user || !user.pr) {
+
+        loading.style.display = "none";
+
+        error.style.display = "block";
+        error.textContent =
+            "Sesi pengguna tidak dijumpai. Sila kembali ke Dashboard dan log masuk semula.";
+
+        return;
+    }
+
+
+    if (!data || !data.success) {
+
+        loading.style.display = "none";
+
+        error.style.display = "block";
+        error.textContent =
+            "Maklumat potongan belum dimuatkan. Sila kembali ke Dashboard terlebih dahulu.";
+
+        return;
+    }
+
+
+    if (potonganPR && String(potonganPR) !== String(user.pr)) {
+
+        loading.style.display = "none";
+
+        error.style.display = "block";
+        error.textContent =
+            "Maklumat potongan tidak sepadan dengan pengguna.";
+
+        return;
+    }
+
 
     document.getElementById("nama").textContent =
-        user.nama || "-";
+        user.nama || data.nama || "-";
+
 
     document.getElementById("pr").textContent =
         user.pr || "-";
 
+
+    let bulan = data.bulan || "";
+
+    if (data.tahun) {
+        bulan += " " + data.tahun;
+    }
+
     document.getElementById("bulan").textContent =
-        (data.bulan || "") + " " + (data.tahun || "");
+        bulan || "-";
+
 
     document.getElementById("jumlah").textContent =
         formatRM(data.jumlah);
 
-} else {
 
-    const box = document.getElementById("error");
+    loading.style.display = "none";
+    error.style.display = "none";
+    payment.style.display = "block";
 
-    box.style.display = "block";
-    box.textContent =
-        "Maklumat potongan belum dimuatkan. Sila kembali ke Dashboard terlebih dahulu.";
 }
-  
- function sudahBayar() {
+
+
+function sudahBayar() {
 
     if (!data || !data.success) {
+
         alert("Maklumat bayaran tidak dijumpai.");
+
         return;
     }
+
 
     document.getElementById("jumlahPopup").textContent =
         formatRM(data.jumlah);
 
-    document.getElementById("popupBayaran").style.display = "flex";
+
+    document.getElementById("popupBayaran").style.display =
+        "flex";
+
 }
 
 
 function tutupPopup() {
-    document.getElementById("popupBayaran").style.display = "none";
+
+    document.getElementById("popupBayaran").style.display =
+        "none";
+
 }
 
 
 function sahkanBayaran() {
+
     tutupPopup();
 
+
     const payment = document.getElementById("payment");
+
 
     payment.innerHTML = `
         <div style="
             text-align:center;
-            padding:25px 15px;
+            padding:25px 10px;
         ">
-            <div style="font-size:45px; margin-bottom:10px;">
+
+            <div style="
+                font-size:45px;
+                margin-bottom:10px;
+            ">
                 ⏳
             </div>
 
@@ -389,8 +462,9 @@ function sahkanBayaran() {
                 line-height:1.6;
                 margin:0;
             ">
-                Makluman pembayaran anda telah diterima.
-                Status bayaran akan dikemas kini selepas disahkan oleh admin.
+                Maklumat pembayaran anda telah diterima.
+                Status bayaran akan dikemas kini selepas
+                disahkan oleh admin.
             </p>
 
             <div style="
@@ -403,12 +477,23 @@ function sahkanBayaran() {
             ">
                 STATUS: MENUNGGU PENGESAHAN
             </div>
+
         </div>
     `;
-function kembali() {
-  window.location.href = "../";
+
 }
 
+
+function kembali() {
+
+    window.location.href = "./ahli.html";
+
+}
+
+
+paparkanBayaran();
+
 </script>
+
 </body>
 </html>

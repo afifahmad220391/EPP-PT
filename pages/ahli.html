@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Ahli - EPP-PT</title>
 
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f5f8;
+    }
+
+    header {
+      background: #082b50;
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 12px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .card h2 {
+      color: #082b50;
+      margin-top: 0;
+    }
+
+    .info {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logout {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #c62828;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>E-POTONGAN PEJABAT</h1>
+  <p>CAWANGAN PLATUN TEKNIKAL • BATALION 5 PGA</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <p>Selamat Datang</p>
+    <h2 id="nama">Ahli</h2>
+  </div>
+
+  <div class="card">
+    <h2>Maklumat Ahli</h2>
+
+    <div class="info">
+      <b>No. PR:</b> <span id="pr">-</span>
+    </div>
+
+    <div class="info">
+      <b>Jawatan:</b> <span id="jawatan">-</span>
+    </div>
+
+    <div class="info">
+      <b>Peranan:</b> <span id="role">-</span>
+    </div>
+
+    <div class="info">
+      <b>No. Telefon:</b> <span id="telefon">-</span>
+    </div>
+  </div>
+
+  <button class="logout" onclick="logout()">LOG KELUAR</button>
+
+</div>
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (user) {
+  document.getElementById("nama").textContent = user.nama || "Ahli";
+  document.getElementById("pr").textContent = user.pr || "-";
+  document.getElementById("jawatan").textContent = user.jawatan || "-";
+  document.getElementById("role").textContent = user.role || "-";
+  document.getElementById("telefon").textContent = user.telefon || "-";
+}
+
+function logout() {
+  localStorage.removeItem("user");
+  window.location.href = "/EPP-PT/css/js/pages/login.html";
+}
+</script>
+
+</body>
+</html>

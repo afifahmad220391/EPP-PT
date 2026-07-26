@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const API_URL = "https://script.google.com/macros/s/AKfycbxQAlym4pDyC-U3B80aIyE36_33QvKdJvO7WhrfiYeLdQCptRKdh2r-YY3SsFFcMT8iOg/exec";
+            const API_URL = "https://script.google.com/macros/s/AKfycbzOuvnZvar69XHxbw8fivoJX0BrivS-vAbATjt8_MUszr8OegDnQfIyjnyQadyGXD-keg/exec";
 
 fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(password)}`)
     .then(response => response.json())

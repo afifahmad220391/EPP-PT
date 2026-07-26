@@ -1,4 +1,4 @@
-To<!DOCTYPE html>
+ITo<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
@@ -361,6 +361,46 @@ function tutupPopup() {
 
 function sahkanBayaran() {
     tutupPopup();
+
+    const payment = document.getElementById("payment");
+
+    payment.innerHTML = `
+        <div style="
+            text-align:center;
+            padding:25px 15px;
+        ">
+            <div style="font-size:45px; margin-bottom:10px;">
+                ⏳
+            </div>
+
+            <h2 style="
+                color:#0b365b;
+                margin:0 0 10px;
+            ">
+                Menunggu Pengesahan Admin
+            </h2>
+
+            <p style="
+                color:#555;
+                line-height:1.6;
+                margin:0;
+            ">
+                Makluman pembayaran anda telah diterima.
+                Status bayaran akan dikemas kini selepas disahkan oleh admin.
+            </p>
+
+            <div style="
+                margin-top:20px;
+                padding:12px;
+                background:#fff3cd;
+                border-radius:10px;
+                font-weight:bold;
+                color:#856404;
+            ">
+                STATUS: MENUNGGU PENGESAHAN
+            </div>
+        </div>
+    `;
 }
 </script>
 </body>

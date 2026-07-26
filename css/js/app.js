@@ -21,9 +21,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            alert("Log masuk berjaya.\n\n(Sementara dalam mod pembangunan)");
+            const API_URL = "https://script.google.com/macros/s/AKfycbxQAlym4pDyC-U3B80aIyE36_33QvKdJvO7WhrfiYeLdQCptRKdh2r-YY3SsFFcMT8iOg/exec";
 
-            // Akan disambungkan ke Google Apps Script pada fasa seterusnya.
+fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(password)}`)
+    .then(response => response.json())
+    .then(data => {
+
+        if (data.success) {
+            alert("Log masuk berjaya!\n\nSelamat datang " + data.nama);
+        } else {
+            alert("No. PR atau Kata Laluan tidak betul.");
+        }
+
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Tidak dapat berhubung dengan sistem. Sila cuba lagi.");
+    });
 
         });
 

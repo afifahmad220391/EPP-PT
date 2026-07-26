@@ -456,8 +456,32 @@ function tutupPopup() {
 
 function sahkanBayaran() {
 
-    tutupPopup();
+    const inputResit = document.getElementById("buktiBayaran");
 
+    if (!inputResit || inputResit.files.length === 0) {
+        alert("Sila upload resit / bukti pembayaran terlebih dahulu.");
+        return;
+    }
+
+    const resit = inputResit.files[0];
+
+    const jenisDibenarkan = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!jenisDibenarkan.includes(resit.type)) {
+        alert("Format resit mestilah JPG, PNG atau WEBP.");
+        return;
+    }
+
+    if (resit.size > 5 * 1024 * 1024) {
+        alert("Saiz resit terlalu besar. Maksimum 5MB.");
+        return;
+    }
+
+    tutupPopup();
 
     const payment = document.getElementById("payment");
 

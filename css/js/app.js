@@ -27,6 +27,7 @@ fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(pas
     .then(response => response.json())
     .then(data => {
 if (data.success) {
+    data.pr = pr;
     localStorage.setItem("user", JSON.stringify(data));
     window.location.href = "/EPP-PT/pages/ahli.html";
 } else {

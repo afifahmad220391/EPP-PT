@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+To<!DOCTYPE html>
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
@@ -263,6 +263,22 @@ if (data && data.success && potonganPR === user.pr) {
         "Maklumat potongan belum dimuatkan. Sila kembali ke Dashboard terlebih dahulu.";
 }
   
+ function sudahBayar() {
+
+    if (!data || !data.success) {
+        alert("Maklumat bayaran tidak dijumpai.");
+        return;
+    }
+
+    const pasti = confirm(
+        "Sahkan anda telah membuat bayaran sebanyak " +
+        formatRM(data.jumlah) + "?"
+    );
+
+    if (!pasti) return;
+
+    alert("Bayaran telah ditandakan untuk pengesahan admin.");
+} 
 </script>
 </body>
 </html>

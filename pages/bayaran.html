@@ -232,45 +232,32 @@ function formatRM(value) {
   return "RM" + Number(value || 0).toFixed(2);
 }
 
-fetch(
-  API_URL +
-  "?action=potongan&pr=" +
-  encodeURIComponent(user.pr)
-)
+const data = JSON.parse(localStorage.getItem("potongan"));
+const potonganPR = localStorage.getItem("potongan_pr");
 
-.then(response => response.json())
+document.getElementById("loading").style.display = "none";
 
-.then(data => {
+if (data && data.success && potonganPR === user.pr) {
 
-  document.getElementById("loading").style.display = "none";
+    document.getElementById("payment").style.display = "block";
 
-  if (!data.success) {
-    throw new Error(data.message || "Rekod potongan tidak dijumpai.");
-  }
+    document.getElementById("nama").textContent =
+        user.nama || "-";
 
-  document.getElementById("payment").style.display = "block";
+    document.getElementById("pr").textContent =
+        user.pr || "-";
 
-  document.getElementById("nama").textContent =
-    user.nama || "-";
+    document.getElementById("bulan").textContent =
+        (data.bulan || "") + " " + (data.tahun || "");
 
-  document.getElementById("pr").textContent =
-    user.pr || "-";
+    document.getElementById("jumlah").textContent =
+        formatRM(data.jumlah);
 
-  document.getElementById("bulan").textContent =
-    data.bulan + " " + data.tahun;
+} else {
 
-  document.getElementById("jumlah").textContent =
-    formatRM(data.jumlah);
+    const box = document.getElementById("error");
 
-})
-
-.catch(error => {
-
-  document.getElementById("loading").style.display = "none";
-
-  const box = document.getElementById("error");
-
-  box.style.display = "block";
-  box.textContent = error.message || "Gagal mendapatkan maklumat bayaran.";
-
-});
+    box.style.display = "block";
+    box.textContent =
+        "Maklumat potongan belum dimuatkan. Sila kembali ke Dashboard terlebih dahulu.";
+}

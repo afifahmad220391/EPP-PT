@@ -26,10 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
 fetch(`${API_URL}?pr=${encodeURIComponent(pr)}&password=${encodeURIComponent(password)}`)
     .then(response => response.json())
     .then(data => {
-
-        if (data.success) {
-            alert("Log masuk berjaya!\n\nSelamat datang " + data.nama);
-        } else {
+if (data.success) {
+    localStorage.setItem("user", JSON.stringify(data));
+    window.location.href = "../../pages/ahli.html";
+} else {
             alert("No. PR atau Kata Laluan tidak betul.");
         }
 

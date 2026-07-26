@@ -302,11 +302,11 @@ localStorage.setItem("potongan_pr", user.pr);
 
 
 function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("potongan");
+    localStorage.removeItem("potongan_pr");
 
-  localStorage.removeItem("user");
-
-  window.location.href =
-    "/EPP-PT/css/js/pages/login.html";
+    window.location.href = "/EPP-PT/";
 }
 
 </script>

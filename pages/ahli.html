@@ -311,21 +311,23 @@ function logout() {
 </script>
 
 <div style="max-width:600px; margin:0 auto; padding:0 18px 25px;">
-  <<button onclick="localStorage.setItem('potongan_pr', JSON.parse(localStorage.getItem('user')).pr); window.location.href='bayaran.html?v=20260726-4';"'"
-    style="
-      width:100%;
-      padding:16px;
-      border:none;
-      border-radius:12px;
-      background:#168c54;
-      color:white;
-      font-size:15px;
-      font-weight:bold;
-      cursor:pointer;
-      box-shadow:0 3px 10px rgba(0,0,0,.12);
-    
-    💳 BAYAR SEKARANG
-  </button>
+    <button
+        type="button"
+        onclick="localStorage.setItem('potongan_pr', JSON.parse(localStorage.getItem('user')).pr); window.location.href='bayaran.html';"
+        style="
+            width:100%;
+            padding:16px;
+            border:none;
+            border-radius:12px;
+            background:#168c54;
+            color:white;
+            font-size:15px;
+            font-weight:bold;
+            cursor:pointer;
+            box-shadow:0 3px 10px rgba(0,0,0,.12);
+        ">
+        💳 BAYAR SEKARANG
+    </button>
 </div>
 
 </body>

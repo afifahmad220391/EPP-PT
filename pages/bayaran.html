@@ -455,16 +455,13 @@ function tutupPopup() {
 
 
 function sahkanBayaran() {
-    alert("TEST BUTANG BERFUNGSI");
-
-    const inputResit = document.getElementById("buktiBayaran");
 
     const inputResit = document.getElementById("buktiBayaran");
 
     if (!inputResit || inputResit.files.length === 0) {
-    bukaAmaran("Sila upload resit / bukti pembayaran terlebih dahulu.");
-    return;
-}
+        bukaAmaran("Sila upload resit / bukti pembayaran terlebih dahulu.");
+        return;
+    }
 
     const resit = inputResit.files[0];
 

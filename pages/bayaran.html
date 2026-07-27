@@ -340,6 +340,7 @@ header p {
 
 <script>
 
+const API_URL = "https://script.google.com/macros/s/AKfycbyOedWsoi00rxwwpfpJWX7IvR1rT8NCFKE58T51ZLaqYPVHEhXLGlMKftjCTFj84w5H8w/exec";   
 const user = JSON.parse(localStorage.getItem("user") || "null");
 const data = JSON.parse(localStorage.getItem("potongan") || "null");
 const potonganPR = localStorage.getItem("potongan_pr");
@@ -454,7 +455,7 @@ function tutupPopup() {
 }
 
 
-function sahkanBayaran() {
+async function sahkanBayaran() {
 
     const inputResit = document.getElementById("buktiBayaran");
 
@@ -472,66 +473,106 @@ function sahkanBayaran() {
     ];
 
     if (!jenisDibenarkan.includes(resit.type)) {
-        alert("Format resit mestilah JPG, PNG atau WEBP.");
+        bukaAmaran("Format resit mestilah JPG, PNG atau WEBP.");
         return;
     }
 
     if (resit.size > 5 * 1024 * 1024) {
-        alert("Saiz resit terlalu besar. Maksimum 5MB.");
+        bukaAmaran("Saiz resit terlalu besar. Maksimum 5MB.");
         return;
     }
 
-    tutupPopup();
+    const reader = new FileReader();
 
-    const payment = document.getElementById("payment");
+    reader.onload = async function () {
 
+        try {
 
-    payment.innerHTML = `
-        <div style="
-            text-align:center;
-            padding:25px 10px;
-        ">
+            const resitBase64 = reader.result.split(",")[1];
 
-            <div style="
-                font-size:45px;
-                margin-bottom:10px;
-            ">
-                ⏳
-            </div>
+            const params = new URLSearchParams();
 
-            <h2 style="
-                color:#0b365b;
-                margin:0 0 10px;
-            ">
-                Menunggu Pengesahan Admin
-            </h2>
+            params.append("action", "bayar");
+            params.append("pr", user.pr);
+            params.append("nama", user.nama || "");
+            params.append("bulan", data.bulan || "");
+            params.append("jumlah", data.jumlah || 0);
+            params.append("resit", resitBase64);
+            params.append("resitType", resit.type);
+            params.append("resitName", resit.name);
 
-            <p style="
-                color:#555;
-                line-height:1.6;
-                margin:0;
-            ">
-                Maklumat pembayaran anda telah diterima.
-                Status bayaran akan dikemas kini selepas
-                disahkan oleh admin.
-            </p>
+            const response = await fetch(API_URL, {
+                method: "POST",
+                body: params
+            });
 
-            <div style="
-                margin-top:20px;
-                padding:12px;
-                background:#fff3cd;
-                border-radius:10px;
-                font-weight:bold;
-                color:#856404;
-            ">
-                STATUS: MENUNGGU PENGESAHAN
-            </div>
+            const result = await response.json();
 
-        </div>
-    `;
+            if (!result.success) {
+                bukaAmaran(result.message || "Bayaran gagal dihantar.");
+                return;
+            }
 
+            tutupPopup();
+
+            const payment = document.getElementById("payment");
+
+            payment.innerHTML = `
+                <div style="
+                    text-align:center;
+                    padding:25px 10px;
+                ">
+
+                    <div style="
+                        font-size:45px;
+                        margin-bottom:10px;
+                    ">
+                        ⏳
+                    </div>
+
+                    <h2 style="
+                        color:#0b365b;
+                        margin:0 0 10px;
+                    ">
+                        Menunggu Pengesahan Admin
+                    </h2>
+
+                    <p style="
+                        color:#555;
+                        line-height:1.6;
+                        margin:0;
+                    ">
+                        Maklumat pembayaran dan resit telah diterima.
+                        Status bayaran akan dikemas kini selepas
+                        disahkan oleh admin.
+                    </p>
+
+                    <div style="
+                        margin-top:20px;
+                        padding:12px;
+                        background:#fff3cd;
+                        border-radius:10px;
+                        font-weight:bold;
+                        color:#856404;
+                    ">
+                        STATUS: MENUNGGU PENGESAHAN
+                    </div>
+
+                </div>
+            `;
+
+        } catch (error) {
+
+            console.error(error);
+
+            bukaAmaran(
+                "Bayaran gagal dihantar. Sila cuba sekali lagi."
+            );
+        }
+    };
+
+    reader.readAsDataURL(resit);
 }
-
 
 function kembali() {
 
